@@ -19,19 +19,28 @@ import Foundation
 //Расположение. Часы работы.
 //Наименование товара. Кол-во товара. Цена товара (Если у вас два и более одинаковых по названию товаров - соединить)
 class Store{
+
+    var products = [Product]()
+    func addNewProduct(product: Product){
+        products.append(product)
+    }
     var name: String
     var square: Int
     var location: String
     var workscedule: String
+    
    
     init(name: String, square: Int, location: String, workscedule: String) {
         self.name = name
         self.square = square
         self.location = location
         self.workscedule = workscedule
-    }
+        }
     func getInfo(){
         print("Name: \(name), square: \(square), location: \(location), workscedule: \(workscedule)")
+//        for i in products{
+//            print("Name: \(i.name), quantity: \(i.quantity), price: \(i.price)")
+//        }
     }
 }
 
@@ -39,7 +48,6 @@ class Product{
     var name: String
     var quantity: Int
     var price: Int
-    var products = ["Lipstick", "Mascara", "Bronzer"]
     
     init(name: String, quantity: Int, price: Int) {
         self.name = name
@@ -47,37 +55,70 @@ class Product{
         self.price = price
     }
      func getInfo(){
-        print("Name: \(name), quantity: \(quantity), price: \(price)")
+        print("Product name: \(name), quantity: \(quantity), price: \(price)")
     }
 }
 
 
 class autoPartsStore: Store{
+    
+    var spares = [Product]()
+    override func addNewProduct(product: Product){
+        products.append(product)
+    }
+    var dayOf: String
+    
+     init(name: String, square: Int, location: String, workscedule: String, dayOf: String) {
+        
+         self.dayOf = dayOf
+         
+         super.init(name: name, square: square, location: location, workscedule: workscedule)
+        
+    }
    override func getInfo(){
-        print("Name: \(name), square: \(square), location: \(location), workscedule: \(workscedule)")
+        print("Store name: \(name), square: \(square), location: \(location), workscedule: \(workscedule), dayOf: \(dayOf)")
+       for i in products{
+           print("Product name: \(i.name), quantity: \(i.quantity), price: \(i.price)")
+       }
     }
 }
 
 class clothingStore: Store{
+    var clothes = [Product]()
+    override func addNewProduct(product: Product){
+        products.append(product)
+    }
+    var dayOf: String
+    
+    init(name: String, square: Int, location: String, workscedule: String, dayOf: String){
+        
+        self.dayOf = dayOf
+        super.init(name: name, square: square, location: location, workscedule: workscedule)
+    }
    override func getInfo(){
-        print("Name: \(name), square: \(square), location: \(location), workscedule: \(workscedule)")
+        print("Store name: \(name), square: \(square), location: \(location), workscedule: \(workscedule), dayOf: \(dayOf)")
+       for i in products{
+           print("Product name: \(i.name), quantity: \(i.quantity), price: \(i.price)")
+       }
+       
     }
 }
 
- var cosmetics = Store(name: "Bonito", square: 100, location: "Aitmatov st", workscedule: "9:00-21:00")
-cosmetics.getInfo()
+var liptick = Product(name: "Lipstick", quantity: 1, price: 2500)
 
-var autoParts = autoPartsStore(name: "Auto Zone", square: 150, location: "Toktogul st", workscedule: "9:00-21:00")
+
+var battery = Product(name: "Battery", quantity: 1, price: 3500)
+
+
+var tShirt = Product(name: "t-shirt", quantity: 1, price: 3000)
+
+
+
+var autoParts = autoPartsStore(name: "Auto Zone", square: 150, location: "Toktogul st", workscedule: "9:00-21:00", dayOf: "Sunday")
+autoParts.addNewProduct(product: battery)
 autoParts.getInfo()
 
-var clothes = clothingStore(name: "MaxMara", square: 180, location: "Erkindik st", workscedule: "9:00-21:00")
+var clothes = clothingStore(name: "Nike", square: 180, location: "Erkindik st", workscedule: "9:00-21:00", dayOf: "Sunday")
+clothes.addNewProduct(product: tShirt)
 clothes.getInfo()
 
-var liptick = Product(name: "Lipstick", quantity: 1, price: 2500)
-liptick.getInfo()
-
-var mascara = Product(name: "Mascara", quantity: 2, price: 1400)
-mascara.getInfo()
-
-var bronzer = Product(name: "Bronzer", quantity: 3, price: 2700)
-bronzer.getInfo()
